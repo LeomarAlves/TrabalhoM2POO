@@ -2,22 +2,38 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Pedido {
-    Cliente cliente;
-    private ArrayList<ItemPedido> itens;
+    private Cliente cliente;
+    private ArrayList<ItemPedido> produtos = new ArrayList<>();
     private boolean entrega;
-    private double taxa_entrega, valor, troco;
+    private double valor, troco;
+    private static final double taxa_entrega = 9.99;
     private int forma_pagamento;
-    Date data;
+    private Date data;
 
-    public Pedido(Cliente cliente, ArrayList<ItemPedido> itens, boolean entrega, double taxa_entrega, double valor, double troco, int forma_pagamento, Date data) {
+    public Pedido(Cliente cliente, ArrayList<ItemPedido> produtos, boolean entrega, double valor, double troco, int forma_pagamento, Date data) {
         this.cliente = cliente;
-        this.itens = itens;
+        this.produtos = produtos;
         this.entrega = entrega;
-        this.taxa_entrega = taxa_entrega;
         this.valor = valor;
         this.troco = troco;
         this.forma_pagamento = forma_pagamento;
         this.data = data;
+    }
+
+    public void adicionarItem(ItemPedido item){
+        produtos.add(item);
+    }
+
+    public double calcularPreco(){
+        double total = 0.0;
+
+        for(ItemPedido item : produtos){
+            total += item.getProduto().getPreco() * item.getQuantidade();
+        }
+        if(entrega){
+            total += taxa_entrega;
+        }
+        return total;
     }
 
     public Cliente getCliente() {
@@ -28,12 +44,12 @@ public class Pedido {
         this.cliente = cliente;
     }
 
-    public ArrayList<ItemPedido> getItens() {
-        return itens;
+    public ArrayList<ItemPedido> getProdutos() {
+        return produtos;
     }
 
-    public void setItens(ArrayList<ItemPedido> itens) {
-        this.itens = itens;
+    public void setProdutos(ArrayList<ItemPedido> produtos) {
+        this.produtos = produtos;
     }
 
     public boolean isEntrega() {
@@ -42,14 +58,6 @@ public class Pedido {
 
     public void setEntrega(boolean entrega) {
         this.entrega = entrega;
-    }
-
-    public double getTaxa_entrega() {
-        return taxa_entrega;
-    }
-
-    public void setTaxa_entrega(double taxa_entrega) {
-        this.taxa_entrega = taxa_entrega;
     }
 
     public double getValor() {
@@ -88,9 +96,8 @@ public class Pedido {
     public String toString() {
         return "Pedido{" +
                 "cliente=" + getCliente() +
-                ", itens=" + getItens() +
+                ", produtos=" + getProdutos() +
                 ", entrega=" + entrega +
-                ", taxa_entrega=" + getTaxa_entrega() +
                 ", valor=" + getValor() +
                 ", troco=" + getTroco() +
                 ", forma_pagamento=" + getForma_pagamento() +

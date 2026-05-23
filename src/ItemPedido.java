@@ -1,5 +1,5 @@
 public class ItemPedido {
-    Produto produto;
+    private Produto produto;
     private int quantidade;
 
     public ItemPedido(Produto produto, int quantidade) {
