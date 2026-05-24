@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
@@ -71,6 +72,33 @@ public class Main {
                         input.nextLine();
                     }
 
+                    Pedido novoPedido = new Pedido(clienteEncontrado, new Date());
+
+                    int resp;
+                    do{
+                        System.out.println("Código do produto: ");
+                        int codBusca = input.nextInt();
+                        Produto produtoEncontrado = null;
+                        for(Produto pe : produtos){
+                            if(pe.getCodigo() == codBusca){
+                                produtoEncontrado = pe;
+                                break;
+                            }
+                        }
+                        if(produtoEncontrado != null){
+                            System.out.println("Informe a quantidade: ");
+                            int quantP = input.nextInt();
+                            ItemPedido itemP = new ItemPedido(produtoEncontrado, quantP);
+                            novoPedido.adicionarItem(itemP);
+                        }else{
+                            System.out.println("Produto não encontrado. ");
+                        }
+                        System.out.println("Digite 1 para novo produto ou 0 para sair. ");
+                        resp = input.nextInt();
+                    }while (resp != 0);
+
+                    pedidos.add(novoPedido);
+                    break;
             }
         }while (option != 5);
 

@@ -20,6 +20,11 @@ public class Pedido {
         this.data = data;
     }
 
+    public Pedido(Cliente cliente, Date data) {
+        this.cliente = cliente;
+        this.data = data;
+    }
+
     public void adicionarItem(ItemPedido item){
         produtos.add(item);
     }
