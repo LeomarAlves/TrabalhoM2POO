@@ -38,7 +38,8 @@ public class Pedido {
         if(entrega){
             total += taxa_entrega;
         }
-        return total;
+        this.valor = total;
+        return valor;
     }
 
     public Cliente getCliente() {

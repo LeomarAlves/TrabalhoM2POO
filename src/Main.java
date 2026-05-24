@@ -22,36 +22,42 @@ public class Main {
 
             switch (option){
                 case 1:
+                    input.nextLine();
                     System.out.println("--Cadastrar cliente--");
-                    System.out.println("Nome: ");
+                    System.out.print("Nome: ");
                     String nomeC = input.nextLine();
-                    System.out.println("Endereço: ");
+                    System.out.print("Endereço: ");
                     String enderecoC = input.nextLine();
-                    System.out.println("Telefone: ");
+                    System.out.print("Telefone: ");
                     String telefoneC = input.nextLine();
                     Cliente c = new Cliente(nomeC, enderecoC, telefoneC);
                     clientes.add(c);
                     System.out.println("Cliente cadastrado com sucesso! ");
+                    System.out.println("Aperte enter");
                     input.nextLine();
                 break;
 
                 case 2:
+                    input.nextLine();
                     System.out.println("--Cadastrar produto--");
-                    System.out.println("Nome: ");
+                    System.out.print("Nome: ");
                     String nomeP = input.nextLine();
-                    System.out.println("Código: ");
+                    System.out.print("Código: ");
                     int codigoP = input.nextInt();
-                    System.out.println("Preço: ");
+                    System.out.print("Preço: ");
                     double precoP = input.nextDouble();
                     Produto p = new Produto(nomeP, codigoP, precoP);
                     produtos.add(p);
                     System.out.println("Produto cadastrado com sucesso!");
+                    System.out.println("Aperte Enter ");
+                    input.nextLine();
                     input.nextLine();
                 break;
 
                 case 3:
+                    input.nextLine();
                     System.out.println("--Fazer pedido--");
-                    System.out.println("Nome do cliente: ");
+                    System.out.print("Nome do cliente: ");
                     String nomeBusca = input.nextLine();
                     Cliente clienteEncontrado = null;
                     for(Cliente cl : clientes){
@@ -62,9 +68,9 @@ public class Main {
                     }
                     if(clienteEncontrado == null){
                         System.out.println("Cliente" + nomeBusca + "não encontrado! Finalizar cadastro: ");
-                        System.out.println("Endereço: ");
+                        System.out.print("Endereço: ");
                         String enderecoCn = input.nextLine();
-                        System.out.println("Telefone: ");
+                        System.out.print("Telefone: ");
                         String telefoneCn = input.nextLine();
                         clienteEncontrado = new Cliente(nomeBusca, enderecoCn, telefoneCn);
                         clientes.add(clienteEncontrado);
@@ -76,7 +82,7 @@ public class Main {
 
                     int resp;
                     do{
-                        System.out.println("Código do produto: ");
+                        System.out.print("Código do produto: ");
                         int codBusca = input.nextInt();
                         Produto produtoEncontrado = null;
                         for(Produto pe : produtos){
@@ -86,19 +92,30 @@ public class Main {
                             }
                         }
                         if(produtoEncontrado != null){
-                            System.out.println("Informe a quantidade: ");
+                            System.out.print("Informe a quantidade: ");
                             int quantP = input.nextInt();
                             ItemPedido itemP = new ItemPedido(produtoEncontrado, quantP);
                             novoPedido.adicionarItem(itemP);
                         }else{
                             System.out.println("Produto não encontrado. ");
                         }
-                        System.out.println("Digite 1 para novo produto ou 0 para sair. ");
+                        System.out.print("Digite 1 para novo produto ou 0 para sair: ");
                         resp = input.nextInt();
                     }while (resp != 0);
 
+                    novoPedido.calcularPreco();
+                    System.out.println("Sub total = " + novoPedido.getValor());
+
+
                     pedidos.add(novoPedido);
-                    break;
+
+                break;
+
+                case 4:
+                    for(Pedido pedido : pedidos){
+                        System.out.println(pedido);
+                    }
+                break;
             }
         }while (option != 5);
 
