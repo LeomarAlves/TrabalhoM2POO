@@ -13,7 +13,7 @@ public class Pedido {
     public Pedido(Cliente cliente, ArrayList<ItemPedido> produtos, boolean entrega, double valor, double troco, int forma_pagamento, Date data) {
         this.cliente = cliente;
         this.produtos = produtos;
-        this.entrega = entrega;
+        this.entrega = false;
         this.valor = valor;
         this.troco = troco;
         this.forma_pagamento = forma_pagamento;

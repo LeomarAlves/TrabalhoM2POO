@@ -103,9 +103,26 @@ public class Main {
                         resp = input.nextInt();
                     }while (resp != 0);
 
-                    novoPedido.calcularPreco();
+                    int opcaoEntrega;
+                    System.out.print("Pedido para entrega? \n Digite 1 para SIM ou 0 para NÃO: ");
+                    opcaoEntrega = input.nextInt();
+                    if (opcaoEntrega == 1){
+                        novoPedido.setEntrega(true);
+                    }
+
+                    novoPedido.setValor(novoPedido.calcularPreco());
                     System.out.println("Sub total = " + novoPedido.getValor());
 
+                    int opcaoPaga;
+                    System.out.println("Forma de pagamento \n Digite 1 para dinheiro ou 0 para cartão:");
+                    opcaoPaga = input.nextInt();
+                    if(opcaoPaga == 1){
+                        double valorPagamento;
+                        System.out.println("Sub total: " + novoPedido.getValor() + "\n Informe o valor para troco: ");
+                        valorPagamento = input.nextDouble();
+                        novoPedido.setTroco(valorPagamento - novoPedido.getValor());
+                        System.out.println("Troco: " + novoPedido.getTroco());
+                    }
 
                     pedidos.add(novoPedido);
 
